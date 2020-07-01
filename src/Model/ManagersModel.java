@@ -1,6 +1,6 @@
 package Model;
 
-public class StudentsModel {
+public class ManagersModel {
 
 	private String name,sex,contact,student_id;
 	
