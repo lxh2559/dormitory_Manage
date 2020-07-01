@@ -20,6 +20,24 @@ public class Stay_Operation {
         prepare.execute();
     }
 
+    public void deleteStay(Stay_Model deleteModel) throws Exception {
+        Connection conn = DB.getConnection();
+        PreparedStatement prepare = conn.prepareStatement("delete from stay where dorm_id = ? and bed_id = ?");
+        prepare.setString(1, deleteModel.getDorm_id());
+        prepare.setInt(2, deleteModel.getBed_id());
+        prepare.execute();
+    }
+
+    public void addStay(Stay_Model addModel) throws Exception {
+        Connection conn = DB.getConnection();
+        PreparedStatement prepare = conn.prepareStatement("insert into stay " + "values (?, ?, ?, ?)");
+        prepare.setString(1, addModel.getStudent_id());
+        prepare.setString(2, addModel.getName());
+        prepare.setString(3, addModel.getDorm_id());
+        prepare.setInt(4, addModel.getBed_id());
+        prepare.execute();
+    }
+ 
     public Stay_Model select(String dorm_id, Integer bed_id) throws Exception {
         Connection conn = DB.getConnection();
         PreparedStatement sql = conn.prepareStatement(" select * from stay where dorm_id = ? and bed_id = ? ");

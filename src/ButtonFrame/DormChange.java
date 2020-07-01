@@ -34,7 +34,8 @@ public class DormChange {
     private JButton button1 = new JButton("保存");
     private JButton button2 = new JButton("返回");
     private String[][] data = {};
-    
+    Stay_Model sModel = null;
+    Stay_Control sControl = new Stay_Control();
     public DormChange(String dorm_id) {
         try{
             dModel = dControl.get(dorm_id);                 
@@ -69,8 +70,6 @@ public class DormChange {
         String[] title = {"宿舍名", "床位", "姓名", "学号"};
 
         for(int i = 0; i < dModel.getBed_num(); i++) {
-            Stay_Model sModel = null;
-            Stay_Control sControl = new Stay_Control(); 
             try{
                 sModel = sControl.get(dModel.getDorm_id(), i+1);  
                 if(sModel == null) {
@@ -96,6 +95,7 @@ public class DormChange {
         table.getColumnModel().getColumn(3).setPreferredWidth(200);
         table.setRowHeight(30);
         table.setFont(new Font("宋体", Font.BOLD, 20));
+        table.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
 
         JTableHeader header = table.getTableHeader();
         header.setFont(new Font("宋体", Font.BOLD, 20));
@@ -141,14 +141,39 @@ public class DormChange {
     private class ButtonListener1 implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            int j = dModel.getBed_num();
             dModel.setBed_num(Integer.parseInt(text1.getText()));
             dModel.setStudent_num(Integer.parseInt(text2.getText()));
             try {
                 dControl.update(dModel);
-                
             } catch (Exception e1) {}
-            
-            System.out.println(table.getValueAt(0, 2));
+            for(int i = 0; i < j; i++) {
+                try{
+                    sModel = sControl.get(dModel.getDorm_id(), i+1);
+                    if(sModel == null) {
+                        if(((String)table.getValueAt(i, 2)).length() != 0 && ((String)table.getValueAt(i, 3)).length() != 0) {
+                            sModel = new Stay_Model();
+                            sModel.setDorm_id(dModel.getDorm_id());
+                            sModel.setBed_id(i+1);
+                            sModel.setName((String)table.getValueAt(i, 2));
+                            sModel.setStudent_id((String)table.getValueAt(i, 3));
+                            try {
+                                sControl.add(sModel);
+                            } catch (Exception e2) {}
+                        }
+                    }
+                    if(data[i][2] != (String)table.getValueAt(i, 2) || data[i][3] != (String)table.getValueAt(i, 3)) {
+                        if(((String)table.getValueAt(i, 2)).length() == 0 && ((String)table.getValueAt(i, 3)).length() == 0)
+                            sControl.delete(sModel);
+                        else {
+                            sModel.setName((String)table.getValueAt(i, 2));
+                            sModel.setStudent_id((String)table.getValueAt(i, 3));
+                            sControl.update(sModel);
+                        }
+                    }       
+                } catch(Exception e1) {
+                }
+            }
             frame.dispose();
             new DormChange(dModel.getDorm_id());
         }

@@ -40,6 +40,7 @@ public class Manager {
         buttonGroup.add(button3);
 
         jpl.setLayout(null);
+        jpl.setFocusable(true);
 
         frame.add(jpl);
         frame.setTitle("管理员");
