@@ -29,13 +29,17 @@ public class ManagerDel extends JFrame {
 	boolean aa = false ;
 	
 	JLabel[] labbox = new JLabel[13];
-	String labstr[] = { "姓名         ", "性别         ","联系方式"};
+	String labstr[] = { "姓名    ", "性别    ","联系方式"};
 
 	public static JTextField[] textbox = new JTextField[13];
 	JLabel lab1, lab2;
 	JTextField text;
 
-	public ManagerDel() {
+	Integer id = null;
+	String ac = null;
+	public ManagerDel(Integer identity, String account) {
+		id = identity;
+		ac = account;	
 
 		lab1 = new JLabel("管理员信息删除");
 		lab1.setBounds(255, 0, 150, 30);
@@ -54,8 +58,8 @@ public class ManagerDel extends JFrame {
 		ok.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				StudentsControl r = new StudentsControl();
-				StudentsModel rr = null;
+				ManagersControl r = new ManagersControl();
+				ManagersModel rr = null;
 				boolean bb = false;
 				if (e.getSource() == ok) {
 					try {
@@ -66,7 +70,7 @@ public class ManagerDel extends JFrame {
 							rr = r.get(text.getText());
 						}
 						if (rr != null) {
-							bb = rr.getStudent_id().equals(text.getText());
+							bb = rr.getManager_id().equals(text.getText());
 						} else {
 							JOptionPane.showMessageDialog(null, "工号不正确", "系统提示", JOptionPane.ERROR_MESSAGE);
 							return;
@@ -97,63 +101,76 @@ public class ManagerDel extends JFrame {
 		 */
 		for (int i = 0; i < 3; i++) {
 			labbox[i] = new JLabel(labstr[i]);
-			labbox[i].setFont(new Font("华文行楷", Font.PLAIN, 18));
+			labbox[i].setFont(new Font("宋体", Font.PLAIN, 18));
 		}
 		/**
 		 * 循环文本框
 		 */
 		for (int i = 0; i < 3; i++) {
 			textbox[i] = new JTextField(15);
-			textbox[i].setFont(new Font("隶书", Font.PLAIN, 16));
+			textbox[i].setFont(new Font("宋体", Font.PLAIN, 16));
 			textbox[i].setEditable(false);
 
 		}
 
 		Box boxVertical = new Box(BoxLayout.Y_AXIS); // 创建从上到下盒子布局
 		Box titleBox = Box.createHorizontalBox();// 创建从左到右盒子布局
+
+		boxVertical.add(Box.createVerticalStrut(15));
+		titleBox.add(Box.createHorizontalStrut(50));
 		titleBox.add(lab1);
-		titleBox.add(Box.createHorizontalStrut(36));
+		titleBox.add(Box.createHorizontalStrut(50));
 		boxVertical.add(titleBox);
 		boxVertical.add(Box.createVerticalStrut(15));
 
 		Box studentBox = Box.createHorizontalBox();// 创建从左到右盒子布局
-		managerBox.add(lab2);
-		managerBox.add(Box.createHorizontalStrut(30));
-		managerBox.add(text);
-		managerBox.add(Box.createHorizontalStrut(100));
-		frame.add(ok);
-		boxVertical.add(managerBox);
-		boxVertical.add(Box.createVerticalStrut(60));
+		studentBox.add(Box.createHorizontalStrut(10));
+		studentBox.add(lab2);
+		studentBox.add(Box.createHorizontalStrut(10));
+		studentBox.add(text);
+		studentBox.add(Box.createHorizontalStrut(10));
+		studentBox.add(ok);
+		studentBox.add(Box.createHorizontalStrut(10));
+		boxVertical.add(studentBox);
+		boxVertical.add(Box.createVerticalStrut(25));
 
 		Box nameBox = Box.createHorizontalBox();// 创建从左到右盒子布局
+		nameBox.add(Box.createHorizontalStrut(10));
 		nameBox.add(labbox[0]);
-		nameBox.add(Box.createHorizontalStrut(36));
+		nameBox.add(Box.createHorizontalStrut(10));
 		nameBox.add(textbox[0]);
-		nameBox.add(Box.createHorizontalStrut(36));
-		nameBox.add(labbox[1]);
-		nameBox.add(Box.createHorizontalStrut(36));
-		nameBox.add(textbox[1]);
+		nameBox.add(Box.createHorizontalStrut(10));
+		
 		boxVertical.add(nameBox);
 		boxVertical.add(Box.createVerticalStrut(15));
 
-		Box dateBox = Box.createHorizontalBox();// 创建从左到右盒子布局
-		dateBox.add(labbox[2]);
-		dateBox.add(Box.createHorizontalStrut(36));
-		dateBox.add(textbox[2]);
-		dateBox.add(Box.createHorizontalStrut(36));
-		dateBox.add(labbox[3]);
-		dateBox.add(Box.createHorizontalStrut(36));
-		dateBox.add(textbox[3]);
-		boxVertical.add(dateBox);
+		Box sexBox = Box.createHorizontalBox();// 创建从左到右盒子布局
+		sexBox.add(Box.createHorizontalStrut(10));
+		sexBox.add(labbox[1]);
+		sexBox.add(Box.createHorizontalStrut(10));
+		sexBox.add(textbox[1]);
+		sexBox.add(Box.createHorizontalStrut(10));
+		
+		boxVertical.add(sexBox);
+		boxVertical.add(Box.createVerticalStrut(15));
+		
+		
+		Box telBox = Box.createHorizontalBox();// 创建从左到右盒子布局
+		telBox.add(Box.createHorizontalStrut(10));
+		telBox.add(labbox[2]);
+		telBox.add(Box.createHorizontalStrut(10));
+		telBox.add(textbox[2]);
+		telBox.add(Box.createHorizontalStrut(10));
+		boxVertical.add(telBox);
 		boxVertical.add(Box.createVerticalStrut(15));
 
 		jpbox.add(boxVertical);
 
-		change.setBounds(150, 375, 100, 25);
+		change.setBounds(100, 250, 100, 25);
 		change.setVisible(true);
 		frame.add(change);
 
-		back.setBounds(450, 375, 100, 25);
+		back.setBounds(300, 250, 100, 25);
 		back.setVisible(true);
 		frame.add(back);
 
@@ -162,7 +179,7 @@ public class ManagerDel extends JFrame {
 		jpl.add(jpbox);
 		frame.add(jpl);
 		frame.setTitle("删除管理员信息");
-		frame.setSize(700, 480);
+		frame.setSize(500, 350);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.add(jpbox);
@@ -191,7 +208,7 @@ public class ManagerDel extends JFrame {
 		ActionListener backListenter = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 	            frame.dispose();
-	            new M_infor_manage();
+	            new M_infor_manage(id, ac);
 			}
 		};
 		back.addActionListener(backListenter);

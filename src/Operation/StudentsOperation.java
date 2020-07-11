@@ -68,7 +68,7 @@ public class StudentsOperation {
 		Connection conn = DB.getConnection();
 		PreparedStatement selectstudent = conn.prepareStatement(" select * from student where ID =  ? ");
 		selectstudent.setString(1, student_id);
-		// 返回结果集
+		
 		ResultSet rs = selectstudent.executeQuery();
 		if (rs.next()) {
 			re = new StudentsModel();

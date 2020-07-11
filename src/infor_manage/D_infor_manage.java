@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -12,10 +13,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import Button.DormChange;
-import Button.DormSearch;
+import ButtonFrame.*;
 import Control.Dorm_Control;
-import M_and_S.Manager;
+import System.Manager;
 import Model.Dorm_Model;
 
 public class D_infor_manage {
@@ -25,7 +25,12 @@ public class D_infor_manage {
     private JButton button1 = new JButton("查询宿舍信息");
     private JButton button2 = new JButton("更改宿舍信息");
     private JButton button3 = new JButton("返回");
-    public D_infor_manage() {
+    Integer id = null;
+    String ac = null;
+    public D_infor_manage(Integer identity, String account) {
+        id = identity;
+        ac = account;
+
         JLabel lab1 = new JLabel("输入宿舍号");
         lab1.setBounds(80, 30, 150, 50);
         lab1.setFont(new Font("宋体", Font.BOLD, 25));
@@ -54,8 +59,11 @@ public class D_infor_manage {
         buttonGroup.add(button1);
         buttonGroup.add(button2);
         buttonGroup.clearSelection();
-
+        
         jpl.setLayout(null);
+		JLabel label = new JLabel(new ImageIcon("image\\background.jpg"));
+		label.setSize(500, 350);		
+		jpl.add(label);  
         frame.add(jpl);
 
         frame.setTitle("宿舍信息管理");
@@ -134,7 +142,7 @@ public class D_infor_manage {
                 }
                 else {
                     frame.dispose();
-                    new DormSearch(text.getText());
+                    new DormSearch(id, ac, text.getText());
                 }
             } 
         }        
@@ -207,7 +215,7 @@ public class D_infor_manage {
                 }
                 else {
                     frame.dispose();
-                    new DormChange(text.getText());
+                    new DormChange(id, ac, text.getText());
                 }
             } 
         }      
@@ -217,7 +225,7 @@ public class D_infor_manage {
         @Override
         public void actionPerformed(ActionEvent e) {
             frame.dispose();
-            new Manager();
+            new Manager(id ,ac);
         }
             
     }

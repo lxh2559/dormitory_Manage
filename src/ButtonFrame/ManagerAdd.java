@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import Control.ManagersControl;
-import Model.MangersModel;
+import Model.ManagersModel;
 import Operation.ManagersOperation;
 import infor_manage.M_infor_manage;
 
@@ -30,13 +30,17 @@ public class ManagerAdd extends JFrame {
 	ManagersModel managermodel = new ManagersModel();
 
 	JLabel[] labbox = new JLabel[13];
-	String labstr[] = { "姓名         ", "性别         ","联系方式"};
+	String labstr[] = { "姓名    ", "性别    ","联系方式"};
 
 	public static JTextField[] textbox = new JTextField[13];
 	JLabel lab1, lab2;
 	JTextField text;
 
-	public ManagerAdd() throws Exception{
+	Integer id = null;
+	String ac = null;
+	public ManagerAdd(Integer identity, String account) throws Exception{
+		id = identity;
+		ac = account;	
 
 		lab1 = new JLabel("新增管理员信息");
 		lab1.setBounds(255, 0, 150, 30);
@@ -55,57 +59,71 @@ public class ManagerAdd extends JFrame {
 
 		for (int i = 0; i < 3; i++) {
 			labbox[i] = new JLabel(labstr[i]);
-			labbox[i].setFont(new Font("华文行楷", Font.PLAIN, 18));
+			labbox[i].setFont(new Font("宋体", Font.PLAIN, 18));
 		}
 
 		for (int i = 0; i < 3; i++) {
 			textbox[i] = new JTextField(15);
-			textbox[i].setFont(new Font("隶书", Font.PLAIN, 16));
+			textbox[i].setFont(new Font("宋体", Font.PLAIN, 16));
 			textbox[i].setEditable(true);
 
 		}
 
 		Box boxVertical = new Box(BoxLayout.Y_AXIS); // 创建从上到下盒子布局
 		Box titleBox = Box.createHorizontalBox();// 创建从左到右盒子布局
+
+		boxVertical.add(Box.createVerticalStrut(15));
+		titleBox.add(Box.createHorizontalStrut(50));
 		titleBox.add(lab1);
-		titleBox.add(Box.createHorizontalStrut(36));
+		titleBox.add(Box.createHorizontalStrut(50));
 		boxVertical.add(titleBox);
 		boxVertical.add(Box.createVerticalStrut(15));
 
 		Box studentBox = Box.createHorizontalBox();// 创建从左到右盒子布局
-		managerBox.add(lab2);
-		maanagerBox.add(Box.createHorizontalStrut(36));
-		managerBox.add(text);
-		managerBox.add(Box.createHorizontalStrut(36));
-
+		studentBox.add(Box.createHorizontalStrut(10));
+		studentBox.add(lab2);
+		studentBox.add(Box.createHorizontalStrut(10));
+		studentBox.add(text);
+		studentBox.add(Box.createHorizontalStrut(10));
 		boxVertical.add(studentBox);
-		boxVertical.add(Box.createVerticalStrut(60));
+		boxVertical.add(Box.createVerticalStrut(25));
 
 		Box nameBox = Box.createHorizontalBox();// 创建从左到右盒子布局
+		nameBox.add(Box.createHorizontalStrut(10));
 		nameBox.add(labbox[0]);
-		nameBox.add(Box.createHorizontalStrut(36));
+		nameBox.add(Box.createHorizontalStrut(10));
 		nameBox.add(textbox[0]);
-		nameBox.add(Box.createHorizontalStrut(36));
-		nameBox.add(labbox[1]);
-		nameBox.add(Box.createHorizontalStrut(36));
-		nameBox.add(textbox[1]);
+		nameBox.add(Box.createHorizontalStrut(10));
+		
 		boxVertical.add(nameBox);
 		boxVertical.add(Box.createVerticalStrut(15));
 
-		Box dateBox = Box.createHorizontalBox();// 创建从左到右盒子布局
-		dateBox.add(labbox[2]);
-		dateBox.add(Box.createHorizontalStrut(36));
-		dateBox.add(textbox[2]);
-		dateBox.add(Box.createHorizontalStrut(36));
+		Box sexBox = Box.createHorizontalBox();// 创建从左到右盒子布局
+		sexBox.add(Box.createHorizontalStrut(10));
+		sexBox.add(labbox[1]);
+		sexBox.add(Box.createHorizontalStrut(10));
+		sexBox.add(textbox[1]);
+		sexBox.add(Box.createHorizontalStrut(10));
+		
+		boxVertical.add(sexBox);
 		boxVertical.add(Box.createVerticalStrut(15));
-
+		
+		
+		Box telBox = Box.createHorizontalBox();// 创建从左到右盒子布局
+		telBox.add(Box.createHorizontalStrut(10));
+		telBox.add(labbox[2]);
+		telBox.add(Box.createHorizontalStrut(10));
+		telBox.add(textbox[2]);
+		telBox.add(Box.createHorizontalStrut(10));
+		boxVertical.add(telBox);
+		boxVertical.add(Box.createVerticalStrut(15));
 		jpbox.add(boxVertical);
 
-		Add.setBounds(170, 375, 80, 25);
+		Add.setBounds(100, 250, 80, 25);
 		Add.setVisible(true);
 		frame.add(Add);
 
-		back.setBounds(440, 375, 80, 25);
+		back.setBounds(300, 250, 80, 25);
 		back.setVisible(true);
 		frame.add(back);
 
@@ -114,7 +132,7 @@ public class ManagerAdd extends JFrame {
 		jpl.add(jpbox);
 		frame.add(jpl);
 		frame.setTitle("新增");
-		frame.setSize(700, 480);
+		frame.setSize(500, 350);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.add(jpbox);
@@ -124,7 +142,7 @@ public class ManagerAdd extends JFrame {
 		ActionListener backListener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 	            frame.dispose();
-	            new M_infor_manage();
+	            new M_infor_manage(id, ac);
 				}
 		};
 		back.addActionListener(backListener);
@@ -133,7 +151,7 @@ public class ManagerAdd extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ManagersControl r = new ManagersControl();
-				MaanagersModel rr = null;
+				ManagersModel rr = null;
 				if (e.getSource() == Add) {
 					try {
 						if (text.getText().length() == 0) {
@@ -166,7 +184,7 @@ public class ManagerAdd extends JFrame {
 					JOptionPane.showMessageDialog(null, "联系方式不能为空", "系统提示", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
-				ManagersOperation add = new StudentsOperation();
+				ManagersOperation add = new ManagersOperation();
 				try {
 					add.AddManager(text.getText(), textbox);
 					JOptionPane.showMessageDialog(null, "添加成功");

@@ -1,8 +1,11 @@
+package System;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -11,10 +14,15 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 
 import Control.Login_Control;
-import M_and_S.Manager;
-import M_and_S.Student;
+import System.Manager;
+import System.Student;
+import infor_manage.D_infor_manage;
 import Model.Login_Model;
 
 public class Login {
@@ -26,7 +34,7 @@ public class Login {
     private JButton button = new JButton("登录");
     public Login() {
         JLabel lab1 = new JLabel("宿舍管理系统");
-        lab1.setBounds(170, 0, 200, 50);
+        lab1.setBounds(170, 10, 200, 50);
         lab1.setFont(new Font("宋体", Font.BOLD, 25));
         frame.add(lab1);
 
@@ -47,6 +55,8 @@ public class Login {
         rButton1.setSelected(true);
         jpl.add(rButton1);
         jpl.add(rButton2);
+        rButton1.setContentAreaFilled(false);
+        rButton2.setContentAreaFilled(false);
 
         rButton1.addChangeListener(evt-> {
             if(rButton1.isSelected()) {
@@ -80,10 +90,14 @@ public class Login {
         button.setBounds(150, 250, 200, 50);
         button.setFont(new Font("宋体", Font.BOLD, 20));
         jpl.add(button);
+        button.setContentAreaFilled(true);
 
         button.addActionListener(new ButtonListener());
 
         jpl.setLayout(null);
+		JLabel label = new JLabel(new ImageIcon("image\\background.jpg"));
+		label.setSize(500, 350);		
+		jpl.add(label);  
 
         frame.add(jpl);
         frame.setTitle("登录");
@@ -195,11 +209,11 @@ public class Login {
                     else {
                         if(identity == 1) {
                             frame.dispose();
-                            new Student();
+                            new Student(identity, text.getText());
                         }
                         else {
                             frame.dispose();
-                            new Manager();
+                            new Manager(identity, text.getText());
                         }
                     }
                 }
@@ -211,3 +225,4 @@ public class Login {
         new Login();
     }
 }
+

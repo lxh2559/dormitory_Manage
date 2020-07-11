@@ -1,4 +1,4 @@
-package Button;
+package ButtonFrame;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -30,7 +30,11 @@ public class DormSearch {
     private JTable table = new JTable();
     private JButton button1 = new JButton("修改");
     private JButton button2 = new JButton("返回");
-    public DormSearch(String dorm_id) {
+    Integer id = null;
+    String ac = null;
+    public DormSearch(Integer identity, String account, String dorm_id) {
+        id = identity;
+        ac = account;
         try{
             dModel = dControl.get(dorm_id);                 
         } catch(Exception e1) {}
@@ -98,6 +102,7 @@ public class DormSearch {
         button2.addActionListener(new ButtonListener2());
         
         jpl.setLayout(null);
+        jpl.setFocusable(true);
         frame.add(jpl);
 
         frame.setTitle("查询");
@@ -111,7 +116,7 @@ public class DormSearch {
         @Override
         public void actionPerformed(ActionEvent e) {
             frame.dispose();
-            new DormChange(dModel.getDorm_id());
+            new DormChange(id, ac, dModel.getDorm_id());
         }
             
     }
@@ -120,7 +125,7 @@ public class DormSearch {
         @Override
         public void actionPerformed(ActionEvent e) {
             frame.dispose();
-            new D_infor_manage();
+            new D_infor_manage(id, ac);
         }
             
     }

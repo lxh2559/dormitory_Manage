@@ -29,16 +29,20 @@ public class ManagerSearch extends JFrame {
     private JButton back = new JButton("返回");
     
 	JLabel[] labbox = new JLabel[13];
-	String labstr[] = { "姓名         ", "性别         ","联系方式" };
+	String labstr[] = { "姓名    ", "性别    ","联系方式" };
 
-	public static JTextField[] textbox = new JTextField[13];
+	public static JTextField[] textbox = new JTextField[3];
 	JLabel lab1, lab2;
 	JTextField text;
 
-	public ManagerSearch() {
+	Integer id = null;
+	String ac = null;
+	public ManagerSearch(Integer identity, String account) {
+		id = identity;
+		ac = account;	
 
 		lab1 = new JLabel("管理员信息查询");
-		lab1.setBounds(255, 0, 150, 30);
+		lab1.setBounds(190, 20, 150, 30);
 		lab1.setFont(new Font("宋体", Font.BOLD, 23));
 		frame.add(lab1);
 
@@ -50,7 +54,7 @@ public class ManagerSearch extends JFrame {
 		text.setBounds(170, 50, 200, 30);
 		text.setFont(new Font("宋体", Font.BOLD, 18));
 
-		search.setBounds(600, 45, 80, 25);
+		search.setBounds(350, 45, 80, 25);
 		search.addActionListener(new ActionListener() {
 
 			@Override
@@ -67,7 +71,7 @@ public class ManagerSearch extends JFrame {
 							rr = r.get(text.getText());
 						}
 						if (rr != null) {
-							bb = rr.getStudent_id().equals(text.getText());
+							bb = rr.getManager_id().equals(text.getText());
 						} else {
 							JOptionPane.showMessageDialog(null, "工号不正确", "系统提示", JOptionPane.ERROR_MESSAGE);
 							return;
@@ -95,70 +99,82 @@ public class ManagerSearch extends JFrame {
 		/**
 		 * 循环标签
 		 */
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < 3; i++) {
 			labbox[i] = new JLabel(labstr[i]);
-			labbox[i].setFont(new Font("华文行楷", Font.PLAIN, 18));
+			labbox[i].setFont(new Font("宋体", Font.PLAIN, 18));
 		}
 		/**
 		 * 循环文本框
 		 */
-		for (int i = 0; i < 8; i++) {
-			textbox[i] = new JTextField(15);
-			textbox[i].setFont(new Font("隶书", Font.PLAIN, 16));
+		for (int i = 0; i < 3; i++) {
+			textbox[i] = new JTextField(3);
+			textbox[i].setFont(new Font("宋体", Font.PLAIN, 16));
 			textbox[i].setEditable(false);
 
 		}
 
 		Box boxVertical = new Box(BoxLayout.Y_AXIS); // 创建从上到下盒子布局
 		Box titleBox = Box.createHorizontalBox();// 创建从左到右盒子布局
+
+		boxVertical.add(Box.createVerticalStrut(15));
+		titleBox.add(Box.createHorizontalStrut(50));
 		titleBox.add(lab1);
-		titleBox.add(Box.createHorizontalStrut(36));
+		titleBox.add(Box.createHorizontalStrut(50));
 		boxVertical.add(titleBox);
 		boxVertical.add(Box.createVerticalStrut(15));
 
 		Box studentBox = Box.createHorizontalBox();// 创建从左到右盒子布局
-		managerBox.add(lab2);
-		managerBox.add(Box.createHorizontalStrut(30));
-		managerBox.add(text);
-		managerBox.add(Box.createHorizontalStrut(100));
-		// managerBox.add(search);
-		frame.add(search);
-		boxVertical.add(ManagerBox);
-		boxVertical.add(Box.createVerticalStrut(60));
+		studentBox.add(Box.createHorizontalStrut(10));
+		studentBox.add(lab2);
+		studentBox.add(Box.createHorizontalStrut(10));
+		studentBox.add(text);
+		studentBox.add(Box.createHorizontalStrut(10));
+		studentBox.add(search);
+		studentBox.add(Box.createHorizontalStrut(10));
+		boxVertical.add(studentBox);
+		boxVertical.add(Box.createVerticalStrut(25));
 
 		Box nameBox = Box.createHorizontalBox();// 创建从左到右盒子布局
+		nameBox.add(Box.createHorizontalStrut(10));
 		nameBox.add(labbox[0]);
-		nameBox.add(Box.createHorizontalStrut(36));
+		nameBox.add(Box.createHorizontalStrut(10));
 		nameBox.add(textbox[0]);
-		nameBox.add(Box.createHorizontalStrut(36));
-		nameBox.add(labbox[1]);
-		nameBox.add(Box.createHorizontalStrut(36));
-		nameBox.add(textbox[1]);
+		nameBox.add(Box.createHorizontalStrut(10));
+		
 		boxVertical.add(nameBox);
 		boxVertical.add(Box.createVerticalStrut(15));
 
-		Box dateBox = Box.createHorizontalBox();// 创建从左到右盒子布局
-		dateBox.add(labbox[2]);
-		dateBox.add(Box.createHorizontalStrut(36));
-		dateBox.add(textbox[2]);
-		dateBox.add(Box.createHorizontalStrut(36));
-		dateBox.add(labbox[3]);
-		dateBox.add(Box.createHorizontalStrut(36));
-		dateBox.add(textbox[3]);
-		boxVertical.add(dateBox);
+		Box sexBox = Box.createHorizontalBox();// 创建从左到右盒子布局
+		sexBox.add(Box.createHorizontalStrut(10));
+		sexBox.add(labbox[1]);
+		sexBox.add(Box.createHorizontalStrut(10));
+		sexBox.add(textbox[1]);
+		sexBox.add(Box.createHorizontalStrut(10));
+		
+		boxVertical.add(sexBox);
+		boxVertical.add(Box.createVerticalStrut(15));
+		
+		
+		Box telBox = Box.createHorizontalBox();// 创建从左到右盒子布局
+		telBox.add(Box.createHorizontalStrut(10));
+		telBox.add(labbox[2]);
+		telBox.add(Box.createHorizontalStrut(10));
+		telBox.add(textbox[2]);
+		telBox.add(Box.createHorizontalStrut(10));
+		boxVertical.add(telBox);
 		boxVertical.add(Box.createVerticalStrut(15));
 
 		jpbox.add(boxVertical);
 
-		change.setBounds(130, 375, 80, 25);
+		change.setBounds(65, 250, 80, 25);
 		change.setVisible(true);
 		frame.add(change);
 
-		OK.setBounds(310, 375, 80, 25);
+		OK.setBounds(210, 250, 80, 25);
 		OK.setVisible(true);
 		frame.add(OK);
 		
-		back.setBounds(490, 375, 80, 25);
+		back.setBounds(355, 250, 80, 25);
 		back.setVisible(true);
 		frame.add(back);
 
@@ -167,7 +183,7 @@ public class ManagerSearch extends JFrame {
 		jpl.add(jpbox);
 		frame.add(jpl);
 		frame.setTitle("查询");
-		frame.setSize(700, 480);
+		frame.setSize(500, 350);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.add(jpbox);
@@ -186,9 +202,8 @@ public class ManagerSearch extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ManagersOperation update = new ManagersOperation();
 				try {
-//					System.out.println(text.getText() + "传出去查询文本框中的工号");
-//					System.out.println(textbox[1] + "gonghaogonghaogonghaogonghaogonghao");
 					update.UpdateoneManagers(text.getText(), textbox);
+					JOptionPane.showMessageDialog(null, "更改成功");
 				} catch (SQLException e1) {
 					// TODO 自动生成的 catch 块
 					e1.printStackTrace();
@@ -203,7 +218,7 @@ public class ManagerSearch extends JFrame {
 		ActionListener backListenter = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 	            frame.dispose();
-	            new S_infor_manage();
+	            new M_infor_manage(id, ac);
 			}
 		};
 		back.addActionListener(backListenter);

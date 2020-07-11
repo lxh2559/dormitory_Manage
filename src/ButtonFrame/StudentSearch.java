@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,35 +24,39 @@ public class StudentSearch extends JFrame {
 	private JFrame frame = new JFrame();
 	private JPanel jpl = new JPanel();
 	private JPanel jpbox = new JPanel();
-    private JButton search = new JButton("²éÑ¯");
-    private JButton change = new JButton("¸ü¸Ä");
-    private JButton OK = new JButton("È·¶¨");
-    private JButton back = new JButton("·µ»Ø");
+    private JButton search = new JButton("æŸ¥è¯¢");
+    private JButton change = new JButton("æ›´æ”¹");
+    private JButton OK = new JButton("ç¡®å®š");
+    private JButton back = new JButton("è¿”å›");
     
 	JLabel[] labbox = new JLabel[13];
-	String labstr[] = { "ĞÕÃû         ", "ĞÔ±ğ         ","ÁªÏµ·½Ê½",  "Ñ§Ôº         ",
-			"×¨Òµ         ", "°à¼¶         ", "ËŞÉáÂ¥ºÅ", "´²ºÅ         " };
+	String labstr[] = { "å§“å    ", "æ€§åˆ«","è”ç³»æ–¹å¼",  "å­¦é™¢",
+			"ä¸“ä¸š    ", "ç­çº§", "å®¿èˆæ¥¼å·", "åºŠå·" };
 
 	public static JTextField[] textbox = new JTextField[13];
 	JLabel lab1, lab2;
 	JTextField text;
 
-	public StudentSearch() {
+	Integer id = null;
+    String ac = null;
+	public StudentSearch(Integer identity, String account) {
+		id = identity;
+        ac = account;
 
-		lab1 = new JLabel("Ñ§ÉúĞÅÏ¢²éÑ¯");
+		lab1 = new JLabel("å­¦ç”Ÿä¿¡æ¯æŸ¥è¯¢");
 		lab1.setBounds(255, 0, 150, 30);
-		lab1.setFont(new Font("ËÎÌå", Font.BOLD, 23));
+		lab1.setFont(new Font("å®‹ä½“", Font.BOLD, 23));
 		frame.add(lab1);
 
-		lab2 = new JLabel("Ñ§ºÅ:");
+		lab2 = new JLabel("å­¦å·:");
 		lab2.setBounds(100, 40, 150, 50);
-		lab2.setFont(new Font("ËÎÌå", Font.BOLD, 23));
+		lab2.setFont(new Font("å®‹ä½“", Font.BOLD, 23));
 
 		text = new JTextField();
 		text.setBounds(170, 50, 200, 30);
-		text.setFont(new Font("ËÎÌå", Font.BOLD, 18));
+		text.setFont(new Font("å®‹ä½“", Font.BOLD, 18));
 
-		search.setBounds(600, 45, 80, 25);
+		search.setBounds(600, 45, 100, 25);
 		search.addActionListener(new ActionListener() {
 
 			@Override
@@ -62,7 +67,7 @@ public class StudentSearch extends JFrame {
 				if (e.getSource() == search) {
 					try {
 						if (text.getText().length() == 0) {
-							JOptionPane.showMessageDialog(null, "Ñ§ºÅ²»ÄÜÎª¿Õ", "ÏµÍ³ÌáÊ¾", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "å­¦å·ä¸èƒ½ä¸ºç©º", "ç³»ç»Ÿæç¤º", JOptionPane.ERROR_MESSAGE);
 							return;
 						} else {
 							rr = r.get(text.getText());
@@ -70,7 +75,7 @@ public class StudentSearch extends JFrame {
 						if (rr != null) {
 							bb = rr.getStudent_id().equals(text.getText());
 						} else {
-							JOptionPane.showMessageDialog(null, "Ñ§ºÅ²»ÕıÈ·", "ÏµÍ³ÌáÊ¾", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "å­¦å·ä¸æ­£ç¡®", "ç³»ç»Ÿæç¤º", JOptionPane.ERROR_MESSAGE);
 							return;
 						}
 						if (bb) {
@@ -99,41 +104,37 @@ public class StudentSearch extends JFrame {
 			}
 		});
 
-		/**
-		 * Ñ­»·±êÇ©
-		 */
 		for (int i = 0; i < 8; i++) {
 			labbox[i] = new JLabel(labstr[i]);
-			labbox[i].setFont(new Font("»ªÎÄĞĞ¿¬", Font.PLAIN, 18));
+			labbox[i].setFont(new Font("å®‹ä½“", Font.PLAIN, 18));
 		}
-		/**
-		 * Ñ­»·ÎÄ±¾¿ò
-		 */
+
 		for (int i = 0; i < 8; i++) {
 			textbox[i] = new JTextField(15);
-			textbox[i].setFont(new Font("Á¥Êé", Font.PLAIN, 16));
+			textbox[i].setFont(new Font("å®‹ä½“", Font.PLAIN, 16));
 			textbox[i].setEditable(false);
 
 		}
 
-		Box boxVertical = new Box(BoxLayout.Y_AXIS); // ´´½¨´ÓÉÏµ½ÏÂºĞ×Ó²¼¾Ö
-		Box titleBox = Box.createHorizontalBox();// ´´½¨´Ó×óµ½ÓÒºĞ×Ó²¼¾Ö
+		Box boxVertical = new Box(BoxLayout.Y_AXIS); // åˆ›å»ºä»ä¸Šåˆ°ä¸‹ç›’å­å¸ƒå±€
+		boxVertical.add(Box.createVerticalStrut(15));
+		Box titleBox = Box.createHorizontalBox();// åˆ›å»ºä»å·¦åˆ°å³ç›’å­å¸ƒå±€
 		titleBox.add(lab1);
 		titleBox.add(Box.createHorizontalStrut(36));
 		boxVertical.add(titleBox);
 		boxVertical.add(Box.createVerticalStrut(15));
 
-		Box studentBox = Box.createHorizontalBox();// ´´½¨´Ó×óµ½ÓÒºĞ×Ó²¼¾Ö
+		Box studentBox = Box.createHorizontalBox();// åˆ›å»ºä»å·¦åˆ°å³ç›’å­å¸ƒå±€
 		studentBox.add(lab2);
 		studentBox.add(Box.createHorizontalStrut(30));
 		studentBox.add(text);
-		studentBox.add(Box.createHorizontalStrut(100));
-		// studentBox.add(search);
-		frame.add(search);
+		studentBox.add(Box.createHorizontalStrut(30));
+		search.setFont(new Font("å®‹ä½“", Font.BOLD, 18));
+		studentBox.add(search);
 		boxVertical.add(studentBox);
-		boxVertical.add(Box.createVerticalStrut(60));
+		boxVertical.add(Box.createVerticalStrut(40));
 
-		Box nameBox = Box.createHorizontalBox();// ´´½¨´Ó×óµ½ÓÒºĞ×Ó²¼¾Ö
+		Box nameBox = Box.createHorizontalBox();// åˆ›å»ºä»å·¦åˆ°å³ç›’å­å¸ƒå±€
 		nameBox.add(labbox[0]);
 		nameBox.add(Box.createHorizontalStrut(36));
 		nameBox.add(textbox[0]);
@@ -144,7 +145,7 @@ public class StudentSearch extends JFrame {
 		boxVertical.add(nameBox);
 		boxVertical.add(Box.createVerticalStrut(15));
 
-		Box dateBox = Box.createHorizontalBox();// ´´½¨´Ó×óµ½ÓÒºĞ×Ó²¼¾Ö
+		Box dateBox = Box.createHorizontalBox();// åˆ›å»ºä»å·¦åˆ°å³ç›’å­å¸ƒå±€
 		dateBox.add(labbox[2]);
 		dateBox.add(Box.createHorizontalStrut(36));
 		dateBox.add(textbox[2]);
@@ -155,7 +156,7 @@ public class StudentSearch extends JFrame {
 		boxVertical.add(dateBox);
 		boxVertical.add(Box.createVerticalStrut(15));
 
-		Box contactBox = Box.createHorizontalBox();// ´´½¨´Ó×óµ½ÓÒºĞ×Ó²¼¾Ö
+		Box contactBox = Box.createHorizontalBox();// åˆ›å»ºä»å·¦åˆ°å³ç›’å­å¸ƒå±€
 		contactBox.add(labbox[4]);
 		contactBox.add(Box.createHorizontalStrut(36));
 		contactBox.add(textbox[4]);
@@ -166,7 +167,7 @@ public class StudentSearch extends JFrame {
 		boxVertical.add(contactBox);
 		boxVertical.add(Box.createVerticalStrut(15));
 
-		Box collegeBox = Box.createHorizontalBox();// ´´½¨´Ó×óµ½ÓÒºĞ×Ó²¼¾Ö
+		Box collegeBox = Box.createHorizontalBox();// åˆ›å»ºä»å·¦åˆ°å³ç›’å­å¸ƒå±€
 		collegeBox.add(labbox[6]);
 		collegeBox.add(Box.createHorizontalStrut(36));
 		collegeBox.add(textbox[6]);
@@ -179,23 +180,31 @@ public class StudentSearch extends JFrame {
 
 		jpbox.add(boxVertical);
 
-		change.setBounds(130, 375, 80, 25);
+		change.setBounds(130, 325, 80, 25);
+		change.setFont(new Font("å®‹ä½“", Font.BOLD, 18));
 		change.setVisible(true);
 		frame.add(change);
 
-		OK.setBounds(310, 375, 80, 25);
+		OK.setBounds(310, 325, 80, 25);
+		OK.setFont(new Font("å®‹ä½“", Font.BOLD, 18));
 		OK.setVisible(true);
 		frame.add(OK);
 		
-		back.setBounds(490, 375, 80, 25);
+		back.setBounds(490, 325, 80, 25);
+		back.setFont(new Font("å®‹ä½“", Font.BOLD, 18));
 		back.setVisible(true);
 		frame.add(back);
 
 		jpl.setLayout(null);
 		jpbox.setVisible(true);
 		jpl.add(jpbox);
+		
+		JLabel label = new JLabel(new ImageIcon("image\\background1.jpg"));
+		label.setSize(700, 480);		
+		jpl.add(label);  
+		
 		frame.add(jpl);
-		frame.setTitle("²éÑ¯");
+		frame.setTitle("æŸ¥è¯¢");
 		frame.setSize(700, 480);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
@@ -215,11 +224,9 @@ public class StudentSearch extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				StudentsOperation update = new StudentsOperation();
 				try {
-//					System.out.println(text.getText() + "´«³öÈ¥²éÑ¯ÎÄ±¾¿òÖĞµÄÑ§ºÅ");
-//					System.out.println(textbox[1] + "xuehaoxuehaoxuehaoxuehaoxuehao");
 					update.UpdateoneStudents(text.getText(), textbox);
 				} catch (SQLException e1) {
-					// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+					// TODO è‡ªåŠ¨ç”Ÿæˆçš„ catch å—
 					e1.printStackTrace();
 				}
 				for (int i = 0; i < 8; i++) {
@@ -232,7 +239,7 @@ public class StudentSearch extends JFrame {
 		ActionListener backListenter = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 	            frame.dispose();
-	            new S_infor_manage();
+	            new S_infor_manage(id, ac);
 			}
 		};
 		back.addActionListener(backListenter);

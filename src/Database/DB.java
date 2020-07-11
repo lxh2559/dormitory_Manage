@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class DB {
     private static final String url = "jdbc:mysql://localhost:3306/dormitory_manage?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC";
     private static final String user = "root";
-    private static final String password = "******";
+    private static final String password = "db17875612798";
 
     private static Connection conn = null;
     

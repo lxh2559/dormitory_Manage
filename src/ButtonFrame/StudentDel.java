@@ -23,35 +23,40 @@ public class StudentDel extends JFrame {
 	private JFrame frame = new JFrame();
 	private JPanel jpl = new JPanel();
 	private JPanel jpbox = new JPanel();
-    private JButton ok = new JButton("È·¶¨");
-    private JButton change = new JButton("ÔÙ´ÎÈ·¶¨");
-    private JButton back = new JButton("·µ»Ø");
+    private JButton ok = new JButton("ç¡®å®š");
+    private JButton change = new JButton("å†æ¬¡ç¡®å®š");
+    private JButton back = new JButton("è¿”å›");
 	boolean aa = false ;
 	
 	JLabel[] labbox = new JLabel[13];
-	String labstr[] = { "ĞÕÃû         ", "ĞÔ±ğ         ","ÁªÏµ·½Ê½",  "Ñ§Ôº         ",
-			"×¨Òµ         ", "°à¼¶         ", "ËŞÉáÂ¥ºÅ", "´²ºÅ         " };
+	String labstr[] = { "å§“å    ", "æ€§åˆ«","è”ç³»æ–¹å¼",  "å­¦é™¢",
+			"ä¸“ä¸š    ", "ç­çº§", "å®¿èˆæ¥¼å·", "åºŠå·" };
 
 	public static JTextField[] textbox = new JTextField[13];
 	JLabel lab1, lab2;
 	JTextField text;
 
-	public StudentDel() {
+	Integer id = null;
+    String ac = null;
+	public StudentDel(Integer identity, String account) {
+		id = identity;
+        ac = account;
 
-		lab1 = new JLabel("Ñ§ÉúĞÅÏ¢É¾³ı");
+		lab1 = new JLabel("å­¦ç”Ÿä¿¡æ¯åˆ é™¤");
 		lab1.setBounds(255, 0, 150, 30);
-		lab1.setFont(new Font("ËÎÌå", Font.BOLD, 23));
+		lab1.setFont(new Font("å®‹ä½“", Font.BOLD, 23));
 		frame.add(lab1);
 
-		lab2 = new JLabel("Ñ§ºÅ:");
+		lab2 = new JLabel("å­¦å·:");
 		lab2.setBounds(100, 40, 100, 50);
-		lab2.setFont(new Font("ËÎÌå", Font.BOLD, 23));
+		lab2.setFont(new Font("å®‹ä½“", Font.BOLD, 23));
 
 		text = new JTextField();
 		text.setBounds(170, 50, 150, 30);
-		text.setFont(new Font("ËÎÌå", Font.BOLD, 18));
+		text.setFont(new Font("å®‹ä½“", Font.BOLD, 18));
 
 		ok.setBounds(550, 47, 80, 25);
+		ok.setFont(new Font("å®‹ä½“", Font.BOLD, 18));
 		ok.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -61,7 +66,7 @@ public class StudentDel extends JFrame {
 				if (e.getSource() == ok) {
 					try {
 						if (text.getText().length() == 0) {
-							JOptionPane.showMessageDialog(null, "Ñ§ºÅ²»ÄÜÎª¿Õ", "ÏµÍ³ÌáÊ¾", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "å­¦å·ä¸èƒ½ä¸ºç©º", "ç³»ç»Ÿæç¤º", JOptionPane.ERROR_MESSAGE);
 							return;
 						} else {
 							rr = r.get(text.getText());
@@ -69,7 +74,7 @@ public class StudentDel extends JFrame {
 						if (rr != null) {
 							bb = rr.getStudent_id().equals(text.getText());
 						} else {
-							JOptionPane.showMessageDialog(null, "Ñ§ºÅ²»ÕıÈ·", "ÏµÍ³ÌáÊ¾", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "å­¦å·ä¸æ­£ç¡®", "ç³»ç»Ÿæç¤º", JOptionPane.ERROR_MESSAGE);
 							return;
 						}
 						if (bb) {
@@ -98,40 +103,36 @@ public class StudentDel extends JFrame {
 			}
 		});
 
-		/**
-		 * Ñ­»·±êÇ©
-		 */
 		for (int i = 0; i < 8; i++) {
 			labbox[i] = new JLabel(labstr[i]);
-			labbox[i].setFont(new Font("»ªÎÄĞĞ¿¬", Font.PLAIN, 18));
+			labbox[i].setFont(new Font("å®‹ä½“", Font.PLAIN, 18));
 		}
-		/**
-		 * Ñ­»·ÎÄ±¾¿ò
-		 */
+
 		for (int i = 0; i < 8; i++) {
 			textbox[i] = new JTextField(15);
-			textbox[i].setFont(new Font("Á¥Êé", Font.PLAIN, 16));
+			textbox[i].setFont(new Font("å®‹ä½“", Font.PLAIN, 16));
 			textbox[i].setEditable(false);
 
 		}
 
-		Box boxVertical = new Box(BoxLayout.Y_AXIS); // ´´½¨´ÓÉÏµ½ÏÂºĞ×Ó²¼¾Ö
-		Box titleBox = Box.createHorizontalBox();// ´´½¨´Ó×óµ½ÓÒºĞ×Ó²¼¾Ö
+		Box boxVertical = new Box(BoxLayout.Y_AXIS); // åˆ›å»ºä»ä¸Šåˆ°ä¸‹ç›’å­å¸ƒå±€
+		boxVertical.add(Box.createVerticalStrut(15));
+		Box titleBox = Box.createHorizontalBox();// åˆ›å»ºä»å·¦åˆ°å³ç›’å­å¸ƒå±€
 		titleBox.add(lab1);
 		titleBox.add(Box.createHorizontalStrut(36));
 		boxVertical.add(titleBox);
 		boxVertical.add(Box.createVerticalStrut(15));
 
-		Box studentBox = Box.createHorizontalBox();// ´´½¨´Ó×óµ½ÓÒºĞ×Ó²¼¾Ö
+		Box studentBox = Box.createHorizontalBox();// åˆ›å»ºä»å·¦åˆ°å³ç›’å­å¸ƒå±€
 		studentBox.add(lab2);
 		studentBox.add(Box.createHorizontalStrut(30));
 		studentBox.add(text);
-		studentBox.add(Box.createHorizontalStrut(100));
-		frame.add(ok);
+		studentBox.add(Box.createHorizontalStrut(30));
+		studentBox.add(ok);
 		boxVertical.add(studentBox);
-		boxVertical.add(Box.createVerticalStrut(60));
+		boxVertical.add(Box.createVerticalStrut(40));
 
-		Box nameBox = Box.createHorizontalBox();// ´´½¨´Ó×óµ½ÓÒºĞ×Ó²¼¾Ö
+		Box nameBox = Box.createHorizontalBox();// åˆ›å»ºä»å·¦åˆ°å³ç›’å­å¸ƒå±€
 		nameBox.add(labbox[0]);
 		nameBox.add(Box.createHorizontalStrut(36));
 		nameBox.add(textbox[0]);
@@ -142,7 +143,7 @@ public class StudentDel extends JFrame {
 		boxVertical.add(nameBox);
 		boxVertical.add(Box.createVerticalStrut(15));
 
-		Box dateBox = Box.createHorizontalBox();// ´´½¨´Ó×óµ½ÓÒºĞ×Ó²¼¾Ö
+		Box dateBox = Box.createHorizontalBox();// åˆ›å»ºä»å·¦åˆ°å³ç›’å­å¸ƒå±€
 		dateBox.add(labbox[2]);
 		dateBox.add(Box.createHorizontalStrut(36));
 		dateBox.add(textbox[2]);
@@ -153,7 +154,7 @@ public class StudentDel extends JFrame {
 		boxVertical.add(dateBox);
 		boxVertical.add(Box.createVerticalStrut(15));
 
-		Box contactBox = Box.createHorizontalBox();// ´´½¨´Ó×óµ½ÓÒºĞ×Ó²¼¾Ö
+		Box contactBox = Box.createHorizontalBox();// åˆ›å»ºä»å·¦åˆ°å³ç›’å­å¸ƒå±€
 		contactBox.add(labbox[4]);
 		contactBox.add(Box.createHorizontalStrut(36));
 		contactBox.add(textbox[4]);
@@ -164,7 +165,7 @@ public class StudentDel extends JFrame {
 		boxVertical.add(contactBox);
 		boxVertical.add(Box.createVerticalStrut(15));
 
-		Box collegeBox = Box.createHorizontalBox();// ´´½¨´Ó×óµ½ÓÒºĞ×Ó²¼¾Ö
+		Box collegeBox = Box.createHorizontalBox();// åˆ›å»ºä»å·¦åˆ°å³ç›’å­å¸ƒå±€
 		collegeBox.add(labbox[6]);
 		collegeBox.add(Box.createHorizontalStrut(36));
 		collegeBox.add(textbox[6]);
@@ -177,11 +178,13 @@ public class StudentDel extends JFrame {
 
 		jpbox.add(boxVertical);
 
-		change.setBounds(150, 375, 100, 25);
+		change.setBounds(175, 325, 125, 30);
+		change.setFont(new Font("å®‹ä½“", Font.BOLD, 18));
 		change.setVisible(true);
 		frame.add(change);
 
-		back.setBounds(450, 375, 100, 25);
+		back.setBounds(400, 325, 125, 30);
+		back.setFont(new Font("å®‹ä½“", Font.BOLD, 18));
 		back.setVisible(true);
 		frame.add(back);
 
@@ -189,7 +192,7 @@ public class StudentDel extends JFrame {
 		jpbox.setVisible(true);
 		jpl.add(jpbox);
 		frame.add(jpl);
-		frame.setTitle("É¾³ıÑ§ÉúĞÅÏ¢");
+		frame.setTitle("åˆ é™¤å­¦ç”Ÿä¿¡æ¯");
 		frame.setSize(700, 480);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
@@ -203,14 +206,14 @@ public class StudentDel extends JFrame {
 				try {
 					delete.Delete(text.getText());
 				} catch (SQLException e1) {
-					// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+					// TODO è‡ªåŠ¨ç”Ÿæˆçš„ catch å—
 					e1.printStackTrace();
 					aa = false;
 				}
 				if(aa) {
-					JOptionPane.showMessageDialog(null, "É¾³ı³É¹¦");
+					JOptionPane.showMessageDialog(null, "åˆ é™¤æˆåŠŸ");
 				}else {
-					JOptionPane.showMessageDialog(null, "ÇëÊäÈëÕıÈ·Ñ§ºÅ", "ÏµÍ³ÌáÊ¾", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "è¯·è¾“å…¥æ­£ç¡®å­¦å·", "ç³»ç»Ÿæç¤º", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		};
@@ -219,7 +222,7 @@ public class StudentDel extends JFrame {
 		ActionListener backListenter = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 	            frame.dispose();
-	            new S_infor_manage();
+	            new S_infor_manage(id, ac);
 			}
 		};
 		back.addActionListener(backListenter);

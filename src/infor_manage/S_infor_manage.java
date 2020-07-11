@@ -4,8 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import System.Manager;
 import ButtonFrame.*;
@@ -17,19 +19,18 @@ public class S_infor_manage {
     private JButton button2 = new JButton("新增学生信息");
     private JButton button3 = new JButton("删除学生信息");
     private JButton button4 = new JButton("返回");
-    public S_infor_manage() {
-        frame.setTitle("学生信息管理");
-        frame.setSize(500, 350);
-        frame.setResizable(false);
-        frame.setVisible(true);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    Integer id = null;
+    String ac = null;
+    public S_infor_manage(Integer identity, String account) {
+        id = identity;
+        ac = account;
 
         button1.setBounds(50, 75, 175, 50);
         button1.setFont(new Font("宋体", Font.BOLD, 20));
         jpl.add(button1);
         button1.addActionListener(new SearchListener());
-
+        button1.setOpaque(true);
+        
         button2.setBounds(275, 75, 175, 50);
         button2.setFont(new Font("宋体", Font.BOLD, 20));
         jpl.add(button2);
@@ -52,14 +53,26 @@ public class S_infor_manage {
         buttonGroup.clearSelection();
 
         jpl.setLayout(null);
+        jpl.setFocusable(true);
+		JLabel label = new JLabel(new ImageIcon("image\\background.jpg"));
+		label.setSize(500, 350);		
+		jpl.add(label);  
         frame.add(jpl);
+        
+        frame.setTitle("学生信息管理");
+        frame.setSize(500, 350);
+        frame.setResizable(false);
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 
     }
     private class SearchListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             frame.dispose();
-            new StudentSearch();
+            new StudentSearch(id, ac);
         }
     }
 
@@ -68,7 +81,7 @@ public class S_infor_manage {
         public void actionPerformed(ActionEvent e) {
             frame.dispose();
             try {
-				new StudentAdd();
+				new StudentAdd(id, ac);
 			} catch (Exception e1) {
 				// TODO 自动生成的 catch 块
 				e1.printStackTrace();
@@ -80,14 +93,14 @@ public class S_infor_manage {
         @Override
         public void actionPerformed(ActionEvent e) {
             frame.dispose();
-            new StudentDel();
+            new StudentDel(id, ac);
         }
     }
     private class BackListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             frame.dispose();
-            new Manager();
+            new Manager(id ,ac);
         }    
     }
 }

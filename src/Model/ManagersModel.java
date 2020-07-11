@@ -2,7 +2,7 @@ package Model;
 
 public class ManagersModel {
 
-	private String name,sex,contact,student_id;
+	private String name,sex,contact,manager_id;
 	
 	public String getName() {
 		return name;

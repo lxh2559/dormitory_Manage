@@ -1,4 +1,4 @@
-package Button;
+package ButtonFrame;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,8 +19,10 @@ import javax.swing.table.JTableHeader;
 
 import Control.Dorm_Control;
 import Control.Stay_Control;
+import Control.StudentsControl;
 import Model.Dorm_Model;
 import Model.Stay_Model;
+import Model.StudentsModel;
 import infor_manage.D_infor_manage;
 
 public class DormChange {
@@ -36,7 +39,11 @@ public class DormChange {
     private String[][] data = {};
     Stay_Model sModel = null;
     Stay_Control sControl = new Stay_Control();
-    public DormChange(String dorm_id) {
+    Integer id = null;
+    String ac = null;
+    public DormChange(Integer identity, String account, String dorm_id) {
+        id = identity;
+        ac = account;
         try{
             dModel = dControl.get(dorm_id);                 
         } catch(Exception e1) {}
@@ -152,30 +159,92 @@ public class DormChange {
                     sModel = sControl.get(dModel.getDorm_id(), i+1);
                     if(sModel == null) {
                         if(((String)table.getValueAt(i, 2)).length() != 0 && ((String)table.getValueAt(i, 3)).length() != 0) {
-                            sModel = new Stay_Model();
-                            sModel.setDorm_id(dModel.getDorm_id());
-                            sModel.setBed_id(i+1);
-                            sModel.setName((String)table.getValueAt(i, 2));
-                            sModel.setStudent_id((String)table.getValueAt(i, 3));
-                            try {
-                                sControl.add(sModel);
-                            } catch (Exception e2) {}
+                            if(check((String)table.getValueAt(i, 3))) {
+                                sModel = new Stay_Model();
+                                sModel.setDorm_id(dModel.getDorm_id());
+                                sModel.setBed_id(i+1);
+                                sModel.setName((String)table.getValueAt(i, 2));
+                                sModel.setStudent_id((String)table.getValueAt(i, 3));
+                                try {
+                                    sControl.add(sModel);
+                                } catch (Exception e2) {}
+                            }
+                            else {
+                                final JDialog dialog = new JDialog(frame, "提示", true);
+                                dialog.setSize(400, 280);
+                                dialog.setLocationRelativeTo(frame);
+
+                                JLabel mess1 = new JLabel("学生不存在");
+                                mess1.setBounds(127, 50, 300, 50);
+                                mess1.setFont(new Font("宋体", Font.BOLD, 25));
+
+                                JButton button = new JButton("确定");
+                                button.setBounds(115, 140, 150, 50);
+                                button.setFont(new Font("宋体", Font.BOLD, 20));
+                                button.addActionListener(new ActionListener() {
+                                    @Override
+                                    public void actionPerformed(ActionEvent e) {
+                                        dialog.dispose();
+                                        frame.dispose();
+                                        new DormChange(id, ac, dModel.getDorm_id());
+                                    }
+                                });
+
+                                JPanel jpl = new JPanel();
+                                jpl.add(mess1);
+                                jpl.add(button);
+                                jpl.setLayout(null);
+                                dialog.setContentPane(jpl);
+                                dialog.setVisible(true);
+                                return;
+                            }
                         }
                     }
                     if(data[i][2] != (String)table.getValueAt(i, 2) || data[i][3] != (String)table.getValueAt(i, 3)) {
                         if(((String)table.getValueAt(i, 2)).length() == 0 && ((String)table.getValueAt(i, 3)).length() == 0)
                             sControl.delete(sModel);
                         else {
-                            sModel.setName((String)table.getValueAt(i, 2));
-                            sModel.setStudent_id((String)table.getValueAt(i, 3));
-                            sControl.update(sModel);
+                            if(check((String)table.getValueAt(i, 3))) {
+                                sModel.setName((String)table.getValueAt(i, 2));
+                                sModel.setStudent_id((String)table.getValueAt(i, 3));
+                                sControl.update(sModel);
+                            }
+                            else {
+                                final JDialog dialog = new JDialog(frame, "提示", true);
+                                dialog.setSize(400, 280);
+                                dialog.setLocationRelativeTo(frame);
+
+                                JLabel mess1 = new JLabel("学生不存在");
+                                mess1.setBounds(127, 50, 300, 50);
+                                mess1.setFont(new Font("宋体", Font.BOLD, 25));
+
+                                JButton button = new JButton("确定");
+                                button.setBounds(115, 140, 150, 50);
+                                button.setFont(new Font("宋体", Font.BOLD, 20));
+                                button.addActionListener(new ActionListener() {
+                                    @Override
+                                    public void actionPerformed(ActionEvent e) {
+                                        dialog.dispose();
+                                        frame.dispose();
+                                        new DormChange(id, ac, dModel.getDorm_id());
+                                    }
+                                });
+
+                                JPanel jpl = new JPanel();
+                                jpl.add(mess1);
+                                jpl.add(button);
+                                jpl.setLayout(null);
+                                dialog.setContentPane(jpl);
+                                dialog.setVisible(true);
+                                return;
+                            }
                         }
                     }       
                 } catch(Exception e1) {
                 }
             }
             frame.dispose();
-            new DormChange(dModel.getDorm_id());
+            new DormChange(id, ac, dModel.getDorm_id());
         }
     }
 
@@ -183,8 +252,22 @@ public class DormChange {
         @Override
         public void actionPerformed(ActionEvent e) {
             frame.dispose();
-            new D_infor_manage();
+            new D_infor_manage(id, ac);
         }
             
+    }
+
+    private Boolean check(String student_id) {
+        StudentsModel sModel = null;
+        StudentsControl sControl = new StudentsControl();
+        try {
+            sModel = sControl.get(student_id);
+            
+        } catch (Exception e1) {}
+        if(sModel == null)
+            return false;
+        else
+            return true;
+        //return true;
     }
 }
