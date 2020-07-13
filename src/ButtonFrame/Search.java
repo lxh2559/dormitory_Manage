@@ -61,19 +61,26 @@ public class Search extends JFrame {
         }
         
         new StudentsOperation();
-        try {
-            StudentsOperation.selectone(account);
-        } catch (Exception e1) {
-            e1.printStackTrace();
-        }
-        textbox[0].setText(StudentsOperation.re.getName());
-        textbox[1].setText(StudentsOperation.re.getSex());
-        textbox[2].setText(StudentsOperation.re.getContact());
-        textbox[3].setText(StudentsOperation.re.getCollege());
-        textbox[4].setText(StudentsOperation.re.getMajor());
-        textbox[5].setText(StudentsOperation.re.getClasses());
-        textbox[6].setText(StudentsOperation.re.getDorm_id());
-        textbox[7].setText(StudentsOperation.re.getBed_id() + "");        
+		try {
+			StudentsOperation.selectone(account);
+			textbox[0].setText(StudentsOperation.re.getName());
+			textbox[1].setText(StudentsOperation.re.getSex());
+			textbox[2].setText(StudentsOperation.re.getContact());
+			textbox[3].setText(StudentsOperation.re.getCollege());
+			textbox[4].setText(StudentsOperation.re.getMajor());
+			textbox[5].setText(StudentsOperation.re.getClasses());
+			
+			try {
+				StudentsOperation.selectonedorm(account);
+				textbox[6].setText(StudentsOperation.re.getDorm_id());
+				textbox[7].setText(StudentsOperation.re.getBed_id());						
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+		} catch (Exception e1) {
+			// TODO 自动生成的 catch 块
+			e1.printStackTrace();
+		}   
 
 		Box boxVertical = new Box(BoxLayout.Y_AXIS); // 创建从上到下盒子布局
 		boxVertical.add(Box.createVerticalStrut(30));

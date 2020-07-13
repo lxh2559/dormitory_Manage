@@ -23,14 +23,14 @@ public class ManagerAdd extends JFrame {
 	private JFrame frame = new JFrame();
 	private JPanel jpl = new JPanel();
 	private JPanel jpbox = new JPanel();
-    private JButton Add = new JButton("Ìí¼Ó");
-    private JButton back = new JButton("·µ»Ø");
+    private JButton Add = new JButton("æ·»åŠ ");
+    private JButton back = new JButton("è¿”å›");
     
 	ManagersControl managercontrol = new ManagersControl();
 	ManagersModel managermodel = new ManagersModel();
 
 	JLabel[] labbox = new JLabel[13];
-	String labstr[] = { "ĞÕÃû    ", "ĞÔ±ğ    ","ÁªÏµ·½Ê½"};
+	String labstr[] = { "å§“å    ", "æ€§åˆ«    ","è”ç³»æ–¹å¼"};
 
 	public static JTextField[] textbox = new JTextField[13];
 	JLabel lab1, lab2;
@@ -41,36 +41,36 @@ public class ManagerAdd extends JFrame {
 	public ManagerAdd(Integer identity, String account) throws Exception{
 		id = identity;
 		ac = account;	
-
-		lab1 = new JLabel("ĞÂÔö¹ÜÀíÔ±ĞÅÏ¢");
+		
+		lab1 = new JLabel("æ–°å¢ç®¡ç†å‘˜ä¿¡æ¯");
 		lab1.setBounds(255, 0, 150, 30);
-		lab1.setFont(new Font("ËÎÌå", Font.BOLD, 23));
+		lab1.setFont(new Font("å®‹ä½“", Font.BOLD, 23));
 		frame.add(lab1);
 
-		lab2 = new JLabel("¹¤ºÅ:");
+		lab2 = new JLabel("å·¥å·:");
 		lab2.setBounds(100, 40, 150, 50);
-		lab2.setFont(new Font("ËÎÌå", Font.BOLD, 23));
+		lab2.setFont(new Font("å®‹ä½“", Font.BOLD, 23));
 		// frame.add(lab2);
 
 		text = new JTextField();
 		text.setBounds(170, 50, 200, 30);
-		text.setFont(new Font("ËÎÌå", Font.BOLD, 18));
+		text.setFont(new Font("å®‹ä½“", Font.BOLD, 18));
 		// frame.add(text);
 
 		for (int i = 0; i < 3; i++) {
 			labbox[i] = new JLabel(labstr[i]);
-			labbox[i].setFont(new Font("ËÎÌå", Font.PLAIN, 18));
+			labbox[i].setFont(new Font("å®‹ä½“", Font.PLAIN, 18));
 		}
 
 		for (int i = 0; i < 3; i++) {
 			textbox[i] = new JTextField(15);
-			textbox[i].setFont(new Font("ËÎÌå", Font.PLAIN, 16));
+			textbox[i].setFont(new Font("å®‹ä½“", Font.PLAIN, 16));
 			textbox[i].setEditable(true);
 
 		}
 
-		Box boxVertical = new Box(BoxLayout.Y_AXIS); // ´´½¨´ÓÉÏµ½ÏÂºĞ×Ó²¼¾Ö
-		Box titleBox = Box.createHorizontalBox();// ´´½¨´Ó×óµ½ÓÒºĞ×Ó²¼¾Ö
+		Box boxVertical = new Box(BoxLayout.Y_AXIS); // åˆ›å»ºä»ä¸Šåˆ°ä¸‹ç›’å­å¸ƒå±€
+		Box titleBox = Box.createHorizontalBox();// åˆ›å»ºä»å·¦åˆ°å³ç›’å­å¸ƒå±€
 
 		boxVertical.add(Box.createVerticalStrut(15));
 		titleBox.add(Box.createHorizontalStrut(50));
@@ -79,7 +79,7 @@ public class ManagerAdd extends JFrame {
 		boxVertical.add(titleBox);
 		boxVertical.add(Box.createVerticalStrut(15));
 
-		Box studentBox = Box.createHorizontalBox();// ´´½¨´Ó×óµ½ÓÒºĞ×Ó²¼¾Ö
+		Box studentBox = Box.createHorizontalBox();// åˆ›å»ºä»å·¦åˆ°å³ç›’å­å¸ƒå±€
 		studentBox.add(Box.createHorizontalStrut(10));
 		studentBox.add(lab2);
 		studentBox.add(Box.createHorizontalStrut(10));
@@ -88,7 +88,7 @@ public class ManagerAdd extends JFrame {
 		boxVertical.add(studentBox);
 		boxVertical.add(Box.createVerticalStrut(25));
 
-		Box nameBox = Box.createHorizontalBox();// ´´½¨´Ó×óµ½ÓÒºĞ×Ó²¼¾Ö
+		Box nameBox = Box.createHorizontalBox();// åˆ›å»ºä»å·¦åˆ°å³ç›’å­å¸ƒå±€
 		nameBox.add(Box.createHorizontalStrut(10));
 		nameBox.add(labbox[0]);
 		nameBox.add(Box.createHorizontalStrut(10));
@@ -98,7 +98,7 @@ public class ManagerAdd extends JFrame {
 		boxVertical.add(nameBox);
 		boxVertical.add(Box.createVerticalStrut(15));
 
-		Box sexBox = Box.createHorizontalBox();// ´´½¨´Ó×óµ½ÓÒºĞ×Ó²¼¾Ö
+		Box sexBox = Box.createHorizontalBox();// åˆ›å»ºä»å·¦åˆ°å³ç›’å­å¸ƒå±€
 		sexBox.add(Box.createHorizontalStrut(10));
 		sexBox.add(labbox[1]);
 		sexBox.add(Box.createHorizontalStrut(10));
@@ -109,7 +109,7 @@ public class ManagerAdd extends JFrame {
 		boxVertical.add(Box.createVerticalStrut(15));
 		
 		
-		Box telBox = Box.createHorizontalBox();// ´´½¨´Ó×óµ½ÓÒºĞ×Ó²¼¾Ö
+		Box telBox = Box.createHorizontalBox();// åˆ›å»ºä»å·¦åˆ°å³ç›’å­å¸ƒå±€
 		telBox.add(Box.createHorizontalStrut(10));
 		telBox.add(labbox[2]);
 		telBox.add(Box.createHorizontalStrut(10));
@@ -131,7 +131,7 @@ public class ManagerAdd extends JFrame {
 		jpbox.setVisible(true);
 		jpl.add(jpbox);
 		frame.add(jpl);
-		frame.setTitle("ĞÂÔö");
+		frame.setTitle("æ–°å¢");
 		frame.setSize(500, 350);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
@@ -143,7 +143,7 @@ public class ManagerAdd extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 	            frame.dispose();
 	            new M_infor_manage(id, ac);
-				}
+	            }
 		};
 		back.addActionListener(backListener);
 		
@@ -155,13 +155,13 @@ public class ManagerAdd extends JFrame {
 				if (e.getSource() == Add) {
 					try {
 						if (text.getText().length() == 0) {
-							JOptionPane.showMessageDialog(null, "¹¤ºÅ²»ÄÜÎª¿Õ", "ÏµÍ³ÌáÊ¾", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "å·¥å·ä¸èƒ½ä¸ºç©º", "ç³»ç»Ÿæç¤º", JOptionPane.ERROR_MESSAGE);
 							return;
 						} else {
 							rr = r.get(text.getText());
 						}
 						if (rr != null) {
-							JOptionPane.showMessageDialog(null, "¹¤ºÅÒÑ´æÔÚ£¬ÇëÖØĞÂÊäÈë", "ÏµÍ³ÌáÊ¾", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "å·¥å·å·²å­˜åœ¨ï¼Œè¯·é‡æ–°è¾“å…¥", "ç³»ç»Ÿæç¤º", JOptionPane.ERROR_MESSAGE);
 							return;
 						}
 					} catch (NumberFormatException e1) {
@@ -173,21 +173,21 @@ public class ManagerAdd extends JFrame {
 
 			
 				if (textbox[0].getText().length() == 0) {
-					JOptionPane.showMessageDialog(null, "ĞÕÃû²»ÄÜÎª¿Õ", "ÏµÍ³ÌáÊ¾", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "å§“åä¸èƒ½ä¸ºç©º", "ç³»ç»Ÿæç¤º", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
 				if (textbox[1].getText().length() == 0) {
-					JOptionPane.showMessageDialog(null, "ĞÔ±ğ²»ÄÜÎª¿Õ", "ÏµÍ³ÌáÊ¾", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "æ€§åˆ«ä¸èƒ½ä¸ºç©º", "ç³»ç»Ÿæç¤º", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
 				if (textbox[2].getText().length() == 0) {
-					JOptionPane.showMessageDialog(null, "ÁªÏµ·½Ê½²»ÄÜÎª¿Õ", "ÏµÍ³ÌáÊ¾", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "è”ç³»æ–¹å¼ä¸èƒ½ä¸ºç©º", "ç³»ç»Ÿæç¤º", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
 				ManagersOperation add = new ManagersOperation();
 				try {
 					add.AddManager(text.getText(), textbox);
-					JOptionPane.showMessageDialog(null, "Ìí¼Ó³É¹¦");
+					JOptionPane.showMessageDialog(null, "æ·»åŠ æˆåŠŸ");
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}

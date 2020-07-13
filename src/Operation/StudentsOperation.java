@@ -25,7 +25,7 @@ public class StudentsOperation {
 		this.textbox = textbox;
 		Connection conn = DB.getConnection();
 		PreparedStatement prepareadd = conn.prepareStatement(
-			" insert into student " + " values(?,?,?,?,?,?,?,?,?)");
+			" insert into student " + " values(?,?,?,?,?,?,?)");
 		prepareadd.setString(1, student_id);		
 		prepareadd.setString(2, textbox[0].getText());
 		prepareadd.setString(3, textbox[1].getText());
@@ -33,10 +33,14 @@ public class StudentsOperation {
 		prepareadd.setString(5, textbox[3].getText());
 		prepareadd.setString(6, textbox[4].getText());
 		prepareadd.setString(7, textbox[5].getText());
-		prepareadd.setString(8, textbox[6].getText());
-		prepareadd.setString(9, textbox[7].getText());
-
 		prepareadd.execute();
+		
+		PreparedStatement loginadd =  conn.prepareStatement(
+			" insert into login " + "value(?,?,?) ");
+		loginadd.setString(1, "1");
+		loginadd.setString(2, student_id);
+		loginadd.setString(3, student_id.substring(6));
+		loginadd.execute();
 	}
 	
 	public  void UpdateoneStudents(String student_id,JTextField[] textbox) throws SQLException {
@@ -44,24 +48,35 @@ public class StudentsOperation {
 		this.textbox = textbox;
 		Connection conn = DB.getConnection();
 		PreparedStatement prepareupdate = conn.prepareStatement(
-				" update student set name = ? ,sex = ? ,tel = ? ,  college = ? , major = ? ,class = ? ,d_ID = ? , b_ID = ?  where ID = ? ");
+				" update student set name = ? ,sex = ? ,tel = ? ,  college = ? , major = ? ,class = ? where ID = ? ");
 		prepareupdate.setString(1, textbox[0].getText());
 		prepareupdate.setString(2, textbox[1].getText());
 		prepareupdate.setString(3, textbox[2].getText());
 		prepareupdate.setString(4, textbox[3].getText());
 		prepareupdate.setString(5, textbox[4].getText());
 		prepareupdate.setString(6, textbox[5].getText());
-		prepareupdate.setString(7, textbox[6].getText());
-		prepareupdate.setString(8, textbox[7].getText());
-		prepareupdate.setString(9, student_id);
+		prepareupdate.setString(7, student_id);
 		prepareupdate.execute();
 	}
 	
 	public void Delete(String ID) throws SQLException {
 		Connection conn = DB.getConnection();
-		PreparedStatement delete = conn.prepareStatement(" delete from student where ID = ? ");
-		delete.setString(1, ID);
-		delete.execute();
+		PreparedStatement deletestudent = conn.prepareStatement(" delete from student where ID = ? ");
+		deletestudent.setString(1, ID);
+		deletestudent.execute();
+		
+		PreparedStatement deletelogin = conn.prepareStatement(" delete from login where account = ? and identity = 1");
+		deletelogin.setString(1, ID);
+		deletelogin.execute();
+		
+		try {
+			PreparedStatement deletestay = conn.prepareStatement(" delete from stay where student_id = ? ");
+			deletestay.setString(1, ID);
+			deletestay.execute();
+		} catch (Exception e) {
+
+		}
+
 	}
 
 	public static StudentsModel selectone(String student_id) throws Exception {
@@ -79,16 +94,29 @@ public class StudentsOperation {
 			re.setCollege(rs.getString("college"));
 			re.setMajor(rs.getString("major"));
 			re.setClasses(rs.getString("class"));
-			re.setDorm_id(rs.getString("d_id"));
-			re.setBed_id(rs.getString("b_id"));
 		}
 		else {
 			re = null;
 		}
 		return re;
-
+		
 		
 	}
-
+	
+	public static void selectonedorm(String student_id) throws Exception {
+		Connection conn = DB.getConnection();
+		PreparedStatement selectdorm = conn.prepareStatement(" select * from stay where student_id =  ? ");
+		selectdorm.setString(1, student_id);
+		
+		ResultSet rt = selectdorm.executeQuery();
+		if (rt.next()) {
+			re = new StudentsModel();
+			re.setDorm_id(rt.getString("dorm_id"));
+			re.setBed_id(rt.getString("bed_id"));
+		}
+		else {
+			re = null;
+		}
+	}
 }
 

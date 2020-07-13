@@ -53,7 +53,8 @@ public class M_infor_manage {
 	        buttonGroup.add(button3);
 	        buttonGroup.clearSelection();
 
-	        jpl.setLayout(null);
+			jpl.setLayout(null);
+			jpl.setFocusable(true);
 			JLabel label = new JLabel(new ImageIcon("image\\background.jpg"));
 			label.setSize(500, 350);		
 			jpl.add(label);  

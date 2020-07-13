@@ -87,8 +87,14 @@ public class StudentSearch extends JFrame {
 							textbox[3].setText(StudentsOperation.re.getCollege());
 							textbox[4].setText(StudentsOperation.re.getMajor());
 							textbox[5].setText(StudentsOperation.re.getClasses());
-							textbox[6].setText(StudentsOperation.re.getDorm_id());
-							textbox[7].setText(StudentsOperation.re.getBed_id() + "");
+							try {
+								StudentsOperation.selectonedorm(text.getText());
+								textbox[6].setText(StudentsOperation.re.getDorm_id());
+								textbox[7].setText(StudentsOperation.re.getBed_id());						
+							} catch (Exception e2) {
+								// TODO: handle exception
+							}
+
 
 							return;
 						}
@@ -213,7 +219,7 @@ public class StudentSearch extends JFrame {
 
 		ActionListener ChangeListener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				for (int i = 0; i < 8; i++) {
+				for (int i = 0; i < 6; i++) {
 					textbox[i].setEditable(true);
 				}
 			}

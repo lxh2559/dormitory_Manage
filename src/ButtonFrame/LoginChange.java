@@ -5,13 +5,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 
 import Control.Login_Control;
 import Model.Login_Model;
@@ -66,6 +66,9 @@ public class LoginChange {
         buttonGroup.clearSelection();
 
         jpl.setLayout(null);
+		JLabel label = new JLabel(new ImageIcon("image\\background.jpg"));
+		label.setSize(500, 350);		
+		jpl.add(label);  
         jpl.setFocusable(true);	 
 		
         frame.add(jpl);
@@ -181,7 +184,10 @@ public class LoginChange {
         @Override
         public void actionPerformed(ActionEvent e) {
             frame.dispose();
-            new Manager(lModel.getIdentity(), lModel.getAccount());
+            if(lModel.getIdentity() == 0)
+                new Manager(lModel.getIdentity(), lModel.getAccount());
+            else
+                new Student(lModel.getIdentity(), lModel.getAccount());
         }      
     }
     

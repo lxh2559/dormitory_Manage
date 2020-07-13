@@ -31,6 +31,13 @@ public class ManagersOperation {
 		prepareadd.setString(3, textbox[1].getText());
 		prepareadd.setString(4, textbox[2].getText());
 		prepareadd.execute();
+		
+		PreparedStatement loginadd =  conn.prepareStatement(
+				" insert into login " + "value(?,?,?) ");
+			loginadd.setString(1, "0");
+			loginadd.setString(2, manager_id);
+			loginadd.setString(3, "666666");
+			loginadd.execute();
 	}
 	
 	public  void UpdateoneManagers(String manager_id,JTextField[] textbox) throws SQLException {
@@ -51,6 +58,10 @@ public class ManagersOperation {
 		PreparedStatement delete = conn.prepareStatement(" delete from manager where manager_id = ? ");
 		delete.setString(1, ID);
 		delete.execute();
+		
+		PreparedStatement deletelogin = conn.prepareStatement(" delete from login where account = ? ");
+		deletelogin.setString(1, ID);
+		deletelogin.execute();
 	}
 
 	public static ManagersModel selectone(String manager_id) throws Exception {

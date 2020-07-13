@@ -31,7 +31,7 @@ public class StudentAdd extends JFrame {
 
 	JLabel[] labbox = new JLabel[13];
 	String labstr[] = { "姓名    ", "性别","联系方式",  "学院",
-			"专业    ", "班级", "宿舍楼号", "床号" };
+			"专业    ", "班级"};
 
 	public static JTextField[] textbox = new JTextField[13];
 	JLabel lab1, lab2;
@@ -58,12 +58,12 @@ public class StudentAdd extends JFrame {
 		text.setFont(new Font("宋体", Font.BOLD, 18));
 		// frame.add(text);
 
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < 6; i++) {
 			labbox[i] = new JLabel(labstr[i]);
 			labbox[i].setFont(new Font("宋体", Font.PLAIN, 18));
 		}
 
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < 6; i++) {
 			textbox[i] = new JTextField(15);
 			textbox[i].setFont(new Font("宋体", Font.PLAIN, 16));
 			textbox[i].setEditable(true);
@@ -120,15 +120,6 @@ public class StudentAdd extends JFrame {
 		boxVertical.add(contactBox);
 		boxVertical.add(Box.createVerticalStrut(15));
 
-		Box collegeBox = Box.createHorizontalBox();// 创建从左到右盒子布局
-		collegeBox.add(labbox[6]);
-		collegeBox.add(Box.createHorizontalStrut(36));
-		collegeBox.add(textbox[6]);
-		collegeBox.add(Box.createHorizontalStrut(36));
-		collegeBox.add(labbox[7]);
-		collegeBox.add(Box.createHorizontalStrut(36));
-		collegeBox.add(textbox[7]);
-		boxVertical.add(collegeBox);
 		boxVertical.add(Box.createVerticalStrut(15));
 
 		jpbox.add(boxVertical);
@@ -212,14 +203,7 @@ public class StudentAdd extends JFrame {
 					JOptionPane.showMessageDialog(null, "班级不能为空", "系统提示", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
-				if (textbox[6].getText().length() == 0) {
-					JOptionPane.showMessageDialog(null, "宿舍楼号不能为空", "系统提示", JOptionPane.ERROR_MESSAGE);
-					return;
-				}
-				if (textbox[7].getText().length() == 0) {
-					JOptionPane.showMessageDialog(null, "床号不能为空", "系统提示", JOptionPane.ERROR_MESSAGE);
-					return;
-				}
+
 				StudentsOperation add = new StudentsOperation();
 				try {
 					add.AddStudent(text.getText(), textbox);
